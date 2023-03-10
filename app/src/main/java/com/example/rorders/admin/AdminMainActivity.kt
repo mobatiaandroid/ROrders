@@ -74,32 +74,35 @@ class AdminMainActivity : AppCompatActivity() {
         db.collection("categories").get().addOnSuccessListener {
             for (i in 0..it.documents.size - 1) {
                 menuCatList.add(i, it.documents[i].id.toString())
-                for (j in menuCatList.indices){
+                /*itemListModel= ArrayList()
+                Log.e("cat",menuCatList[i])
                     db.collection("categories/"+menuCatList[i]+"/items").get().addOnSuccessListener{
-                        var temp = ItemListModel(
-                            it.documents[i].get("item_name").toString(),
-                            it.documents[i].get("item_cost").toString()
-                        )
-                        itemListModel.add(temp)
-                    }
-                    
-                }
 
+                        for (j in it.documents.indices) {
+
+                            var temp = ItemListModel(
+                                it.documents[j].get("item_name").toString(),
+                                it.documents[j].get("item_cost").toString()
+                            )
+                            Log.e("itemsname",temp.itemName)
+                            itemListModel.add(temp)
+
+                        }
+
+                    }
+                var nmodel=MenuDetailModel(menuCatList[i],itemListModel)
+                menuTypeModel.add(i,nmodel)*/
 
             }
 
 
-           /* for (i in menuCatList.indices) {
-               var nmodel=MenuDetailModel(menuCatList[i],itemListModel)
-                menuTypeModel.add(i,nmodel)
-                Log.e("types",menuTypeModel[i].type)
-            }*/
+            for (i in menuCatList.indices) {
+                var nmodel = MenuDetailModel(menuCatList[i], itemListModel)
+                menuTypeModel.add(i, nmodel)
+                Log.e("types", menuTypeModel[i].type)
+            }
 
-            db.collection("categories").get().
-            addOnSuccessListener {
-Log.e("it",it.documents[0].get("item_name").toString())
-
-                /*for (i in it.documents.indices) {
+            /*for (i in it.documents.indices) {
                     var temp = ItemListModel(
                         it.documents[i].get("item_name").toString(),
                         it.documents[i].get("item_cost").toString(),
@@ -107,7 +110,7 @@ Log.e("it",it.documents[0].get("item_name").toString())
                     )
                    itemListModel.add(temp)
                 }*/
-               /* for (i in menuCatList.indices){
+            /* for (i in menuCatList.indices){
                     for (j in itemListModel.indices){
                         if (menuCatList[i]==itemListModel[j].itemType){
 
@@ -116,28 +119,30 @@ Log.e("it",it.documents[0].get("item_name").toString())
                     }
                 }*/
 
-                /*for (j in menuTypeModel.indices) {
-                    for(i in it.documents.indices){
-                        if (it.documents[i].get("item_type")==menuTypeModel[j].type){
-                            var temp=ItemListModel(it.documents[i].get("item_name").toString(),
+            db.collection("Menu").get().addOnSuccessListener {
+                for (j in menuTypeModel.indices) {
+                    for (i in it.documents.indices) {
+                        Log.e("type", it.documents[i].get("item_name").toString())
+                        if (it.documents[i].get("item_type") == menuTypeModel[j].type) {
+                            var temp = ItemListModel(
+                                it.documents[i].get("item_name").toString(),
                                 it.documents[i].get("item_cost").toString(),
-                                it.documents[i].get("item_type").toString())
+                                it.documents[i].get("item_type").toString()
+                            )
                             menuTypeModel[j].detailList.add(temp)
 
                         }
                     }
-                }*/
-
-
-                Log.e("menu",menuTypeModel.toString())
-                catRecView.layoutManager = LinearLayoutManager(nContext)
-                var categoryAdapter = CategoryAdapter(nContext, menuTypeModel)
-                catRecView.adapter = categoryAdapter
-                Log.e("name",menuTypeModel[0].detailList.size.toString())
-
-
                 }
             }
+
+
+            catRecView.layoutManager = LinearLayoutManager(nContext)
+            var categoryAdapter = CategoryAdapter(nContext, menuTypeModel)
+            catRecView.adapter = categoryAdapter
+
+
+        }
 
 
         }
