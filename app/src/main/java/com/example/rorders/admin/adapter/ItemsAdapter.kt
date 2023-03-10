@@ -15,11 +15,13 @@ import com.example.rorders.admin.model.MenuDetailModel
 
 class ItemsAdapter (
     private var mContext: Context,
-    private var itemsArrayList: ArrayList<ItemListModel>
+    private var itemsArrayList: ArrayList<ItemListModel>,
+    private var itemList:ArrayList<String>
 ) :
 
     RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
     var isArrowClicked:Boolean=false
+    lateinit var itemNameList:ArrayList<String>
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var itemName: TextView = view.findViewById(R.id.itemname)
@@ -33,15 +35,16 @@ class ItemsAdapter (
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        itemNameList= ArrayList()
 
-        holder.itemName.text = itemsArrayList[position].itemName
+        holder.itemName.text = itemList[position]
 
 
     }
 
 
     override fun getItemCount(): Int {
-        return itemsArrayList.size
+        return itemList.size
     }
 
 

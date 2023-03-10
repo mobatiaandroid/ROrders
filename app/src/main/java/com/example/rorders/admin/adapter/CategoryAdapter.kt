@@ -1,6 +1,7 @@
 package com.example.rorders.admin.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ class CategoryAdapter (
 
     RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
     var isArrowClicked:Boolean=false
-    lateinit var itemList:ArrayList<ItemListModel>
+    lateinit var itemList:ArrayList<String>
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
        var categoryNameTxt: TextView = view.findViewById(R.id.cat_name)
         var linearMain:LinearLayout=view.findViewById(R.id.linear_main)
@@ -42,15 +43,25 @@ class CategoryAdapter (
 
 
         holder.linearMain.setOnClickListener {
+            Log.e("arow",isArrowClicked.toString())
             if (isArrowClicked==false){
+                Log.e("arow","false")
                 isArrowClicked=true
+                itemList=ArrayList()
                 holder.arrowDown.visibility=View.GONE
                 holder.arrowUp.visibility=View.VISIBLE
                 holder.itemsRecycler.visibility=View.VISIBLE
                 holder.itemsRecycler.layoutManager=LinearLayoutManager(mContext)
-                var adapter=ItemsAdapter(mContext,categoryArrayList[position].detailList)
+                for (i in categoryArrayList[position].detailList.indices){
+                    if (categoryArrayList[position].type==categoryArrayList[position].detailList[i].itemType){
+                        itemList.add(categoryArrayList[position].detailList[i].itemName)
+                    }
+                }
+                var adapter=ItemsAdapter(mContext,categoryArrayList[position].detailList,
+                    itemList)
                 holder.itemsRecycler.adapter=adapter
             }else{
+                Log.e("arow","true")
                 isArrowClicked=false
                 holder.arrowDown.visibility=View.VISIBLE
                 holder.arrowUp.visibility=View.GONE
