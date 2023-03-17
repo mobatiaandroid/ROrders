@@ -47,6 +47,7 @@ class AdminMainActivity : AppCompatActivity() {
 
         init()
         listing()
+        selection()
 
     }
 
@@ -97,7 +98,7 @@ class AdminMainActivity : AppCompatActivity() {
 
 
             for (i in menuCatList.indices) {
-                var nmodel = MenuDetailModel(menuCatList[i], itemListModel)
+                var nmodel = MenuDetailModel(menuCatList[i], itemListModel,false)
                 menuTypeModel.add(i, nmodel)
                 Log.e("types", menuTypeModel[i].type)
             }
@@ -223,5 +224,8 @@ class AdminMainActivity : AppCompatActivity() {
         }
 
         dialog.show()
+    }
+    private fun selection(){
+
     }
 }

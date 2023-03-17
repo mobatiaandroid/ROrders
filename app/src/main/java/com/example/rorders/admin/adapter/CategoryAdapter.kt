@@ -21,7 +21,7 @@ class CategoryAdapter (
 ) :
 
     RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
-    var isArrowClicked:Boolean=false
+    //var isArrowClicked:Boolean=false
     lateinit var itemList:ArrayList<String>
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
        var categoryNameTxt: TextView = view.findViewById(R.id.cat_name)
@@ -42,11 +42,11 @@ class CategoryAdapter (
         holder.categoryNameTxt.text = categoryArrayList[position].type
 
 
-        holder.linearMain.setOnClickListener {
-            Log.e("arow",isArrowClicked.toString())
-            if (isArrowClicked==false){
+        holder.itemView.setOnClickListener {
+            Log.e("arow",categoryArrayList[position].isArrowClicked.toString())
+            if (categoryArrayList[position].isArrowClicked==false){
                 Log.e("arow","false")
-                isArrowClicked=true
+                categoryArrayList[position].isArrowClicked=true
                 itemList=ArrayList()
                 holder.arrowDown.visibility=View.GONE
                 holder.arrowUp.visibility=View.VISIBLE
@@ -62,7 +62,7 @@ class CategoryAdapter (
                 holder.itemsRecycler.adapter=adapter
             }else{
                 Log.e("arow","true")
-                isArrowClicked=false
+                categoryArrayList[position].isArrowClicked=false
                 holder.arrowDown.visibility=View.VISIBLE
                 holder.arrowUp.visibility=View.GONE
                 holder.itemsRecycler.visibility=View.GONE
